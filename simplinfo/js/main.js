@@ -38,7 +38,7 @@ function gotDevices(deviceInfos) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
       return n.value === values[selectorIndex];
     })) {
-      select.value = values[selectorIndex].reverse();
+      select.value = values[selectorIndex];
     }
   });
 }

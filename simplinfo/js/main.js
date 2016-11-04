@@ -18,8 +18,8 @@ function gotDevices(deviceInfos) {
     return select.value;
   });
   selectors.forEach(function(select) {
-    while (select.firstChild) {
-      select.removeChild(select.firstChild);
+    while (select.lastChild) {
+      select.removeChild(select.lastChild);
     }
   });
   for (var i = deviceInfos.length-1; i >= 0 ; i--) {

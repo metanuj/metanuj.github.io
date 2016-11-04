@@ -48,6 +48,7 @@ function gotDevices(deviceInfos) {
       return n.value === values[selectorIndex];
     })) {
       select.value = values[selectorIndex];
+      videoSelect.selectedIndex = videoSelect.options.length-1;
     }
   });
 }
@@ -107,7 +108,6 @@ function start() {
 audioInputSelect.onchange = start;
 audioOutputSelect.onchange = changeAudioDestination;
 videoSelect.onchange = start;
-videoSelect.selectedIndex = videoSelect.options.length-1;
 
 start();
 

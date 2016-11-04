@@ -75,7 +75,7 @@ function start() {
 
 //audioInputSelect.onchange = start;
 //audioOutputSelect.onchange = changeAudioDestination;
-//videoSelect.onchange = start;
+videoSelect.onchange = start;
 var ff = document.getElementById("loadVideo");
 ff.addEventListener('click', function() {
   var element = document.getElementById('videoSource');

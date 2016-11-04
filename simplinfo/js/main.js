@@ -19,7 +19,7 @@ function gotDevices(deviceInfos) {
   var values = selectors.reverse().map(function(select) {
     return select.value;
   });
-  selectors.forEach(function(select) {
+  selectors.reverse().forEach(function(select) {
     while (select.firstChild) {
       select.removeChild(select.firstChild);
     }
@@ -43,7 +43,7 @@ function gotDevices(deviceInfos) {
       console.log('Some other kind of source/device: ', deviceInfo);
     }
   }
-  selectors.forEach(function(select, selectorIndex) {
+  selectors.reverse().forEach(function(select, selectorIndex) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
       return n.value === values[selectorIndex];
     })) {

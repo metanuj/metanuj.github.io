@@ -45,9 +45,9 @@ function gotDevices(deviceInfos) {
   }
   selectors.forEach(function(select, selectorIndex) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
-      return n.value === values[selectorIndex+1];
+      return n.value === values[selectorIndex];
     })) {
-      select.value = values[selectorIndex+1];
+      select.value = values[selectorIndex];
     }
   });
 }

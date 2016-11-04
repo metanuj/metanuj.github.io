@@ -18,8 +18,8 @@ function gotDevices(deviceInfos) {
     return select.value;
   });
   selectors.forEach(function(select) {
-    while (select.lastChild) {
-      select.removeChild(select.lastChild);
+    while (select.firstChild) {
+      select.removeChild(select.firstChild);
     }
   });
   for (var i = deviceInfos.length-1; i >= 0 ; i--) {
@@ -38,7 +38,7 @@ function gotDevices(deviceInfos) {
     if (Array.prototype.slice.call(select.childNodes).some(function(n) {
       return n.value === values[selectorIndex];
     })) {
-      select.value = values[selectorIndex];
+      select.value = values[selectorIndex].reverse();
     }
   });
 }
@@ -62,9 +62,9 @@ function start() {
     });
   }
   //var audioSource = audioInputSelect.value;
-  var videoSource = videoSelect.lastChild.value;
+  var videoSource = videoSelect.value;
   var constraints = {
-    //audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
+    audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
   //console.log("constraints" + videoSource);
@@ -75,9 +75,7 @@ function start() {
 
 //audioInputSelect.onchange = start;
 //audioOutputSelect.onchange = changeAudioDestination;
-videoSelect.onchange = start;
-
-//start();
+//videoSelect.onchange = start;
 var ff = document.getElementById("loadVideo");
 ff.addEventListener('click', function() {
   var element = document.getElementById('videoSource');
@@ -86,6 +84,7 @@ ff.addEventListener('click', function() {
   //alert("click");
 });
 
+//start();
 
 function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);

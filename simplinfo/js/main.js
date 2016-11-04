@@ -62,7 +62,7 @@ function start() {
     });
   }
   //var audioSource = audioInputSelect.value;
-  var videoSource = videoSelect.value;
+  var videoSource = videoSelect.lastChild.value;
   var constraints = {
     //audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
     video: {deviceId: videoSource ? {exact: videoSource} : undefined}
@@ -77,7 +77,15 @@ function start() {
 //audioOutputSelect.onchange = changeAudioDestination;
 videoSelect.onchange = start;
 
-start();
+//start();
+var ff = document.getElementById("loadVideo");
+ff.addEventListener('click', function() {
+  var element = document.getElementById('videoSource');
+  var event = new Event('change');
+  element.dispatchEvent(event);
+  //alert("click");
+});
+
 
 function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);

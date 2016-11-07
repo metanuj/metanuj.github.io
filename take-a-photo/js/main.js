@@ -122,7 +122,7 @@ $(document).ready(function(){
   }
   function drawCanvas(){
     var video_id= document.getElementById("video");
-    $('#video').after("<canvas id='canvas' width='300' height='225'></canvas>");
+    $('#video').after("<canvas id='canvas' width='260' height='195'></canvas>");
     var vid_height = $('#video').height();
     var vid_width = $('#video').width();
     $('#video').css({
@@ -143,8 +143,8 @@ $(document).ready(function(){
   function videoReset(){
     $('#video').css({
       "visibility" : "visible",
-      "height" : "225px",
-      "width" :"300px"
+      "height" : "195px",
+      "width" :"26px"
     });
   }
 });

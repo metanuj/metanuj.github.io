@@ -145,7 +145,7 @@ $(document).ready(function(){
     $('#video').css({
       "visibility" : "visible",
       "height" : "195px",
-      "width" :"26px"
+      "width" :"260px"
     });
   }
 });

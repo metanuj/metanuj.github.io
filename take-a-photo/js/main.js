@@ -95,9 +95,8 @@ $(document).ready(function(){
   
   $('#cancel-videoPopup').on("click", function(){
     $('#canvas').remove();
-    $(".video-overlay").remove();
-    $(".video-popup-container").fadeOut();
     videoReset();
+    start();
     togglePane();
     return false;
   });

@@ -45,7 +45,7 @@ function gotStream(stream) {
 }
 function stopStream(stream) {
     console.log('stop called');
-    stream.getVideoTracks().forEach(function (track) {
+    stream.getTracks().forEach(function (track) {
       track.stop();
     });
 }
@@ -95,8 +95,9 @@ $(document).ready(function(){
   
   $('#cancel-videoPopup').on("click", function(){
     $('#canvas').remove();
+    $(".video-overlay").remove();
+    $(".video-popup-container").fadeOut();
     videoReset();
-    start();
     togglePane();
     return false;
   });

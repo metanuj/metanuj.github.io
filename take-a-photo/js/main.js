@@ -60,7 +60,7 @@ function start() {
   var videoSource = videoSelect.value;
   var constraints = {
     //audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+    video: {deviceId: videoSource ? {exact: videoSource} : undefined,  width: { max: 260, min:260 }, height: { max: 195, min:195 }}
   };
   //console.log("constraints" + videoSource);
   navigator.mediaDevices.getUserMedia(constraints).

@@ -76,6 +76,7 @@ function handleError(error) {
 }
 
 $(document).ready(function(){
+  $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">');
   $("#loadVideo").on("click",function(){
     $('body').append("<div class='video-overlay'></div>");
     $(".video-popup-container").fadeIn();

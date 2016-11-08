@@ -58,10 +58,11 @@ function start() {
   //var audioSource = audioInputSelect.value;
   shootEnabled = true;
   var videoSource = videoSelect.value;
-  var constraints = {
+ // var constraints = {
     //audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
-  };
+    //video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+ // };
+ var constraints = { audio: true, video: { width: 1280, height: 720 } };
   //console.log("constraints" + videoSource);
   navigator.mediaDevices.getUserMedia(constraints).
       then(gotStream).then(gotDevices).catch(handleError);

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+	.store-collection {
+		float: none;
+		margin:0 auto;
+		width: 1170px;
+		font-family: 'Lato', sans-serif;
+	}
+	.store-collection h2 {
+		text-align: center;
+	}
+	#hk-store-listing {
+		float: left;
+		width: 24%;
+		padding-right: 15px;
+		box-sizing: border-box;
+		height: 350px;
+		overflow-y:scroll;
+		overflow-x: hidden;
+		margin-right: 1%; 
+	}
+	#hk-store-listing ul {
+		padding: 0;
+	}
+	#hk-store-listing ul li{
+		list-style: none;
+		margin-bottom: 20px;
+	}
+	#hk-store-listing ul li:last-child {
+		margin-bottom: 0;
+	}
+	#hk-store-listing .store-name {
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #000;
+		font-weight: 600;
+	}
+	#map {
+		float: left;
+		width: 75% !important;
+	}
+
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    </style>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="store-collection">
+	<h2>Store Locator</h2>
+		<div id="hk-store-listing">
+		</div>
+		<div id="map" style="width:100%;height:350px"></div>
+		
+	</div>  
+    <script type="text/javascript">
+    var markersArray = [];
+    var destination_url = [];
+    	function initialize() {
+        var myOptions = {
+		  center: new google.maps.LatLng(28.4876667, 77.0881034),
+		  zoom: 2,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map"),myOptions);
+		var infowindow = new google.maps.InfoWindow({maxWidth: 200});
+		setMarkers(map);
+		
+        //setMarkers(center, radius, map);
+    
+
+    function setMarkers(map) {
+    	var i, outputlist = "";
+    	
+        var json = (function () { 
+            var json = null; 
+            $.ajax({ 
+                'async': false, 
+                'global': false, 
+                'url': "ajax/hk-stoe.json", 
+                'dataType': "json", 
+                'success': function (data) {
+                     json = data; 
+                 }
+            });
+            return json;
+        })();
+        console.log(json);
+        for(var j=0; j<json.results.rstList.length; j++){
+        	console.log("Length"+ json.results.rstList.length);
+        	console.log("latitude :" + json.results.rstList[j].address.lat);
+         var data = json.results.rstList[j],
+            latLng = new google.maps.LatLng(data.address.lat, data.address.lng); 
+			var index = j;
+			// Creating a marker and putting it on the map
+			var marker = new google.maps.Marker({
+				map: map,
+			    position: latLng,
+			    title: json.results.rstList[j].stName
+			});
+			markersArray.push(marker);
+			map.setCenter(marker.getPosition());
+
+			var content = "<a href='#'>" + json.results.rstList[j].stName +  '</a>, ' + "<div>" + json.results.rstList[j].address.line1 +"</div><div>"+ json.results.rstList[j].address.landmark + "</div><div class='g-country'>"+json.results.rstList[j].address.cityNm+"</div><div class='g-phone'>Phone : "+json.results.rstList[j].address.cntNum+"</div>" ;
+			
+			
+			outputlist += '<li data-id="'+j+'"><div class="store-inner-box"><a href="" class="store-name">' + json.results.rstList[j].stName + '</a><div class="hk-store-street1">' + json.results.rstList[j].address.line1 + '</div><div class="hk-store-street2">'+json.results.rstList[j].address.landmark+'</div><div class="country">'+json.results.rstList[j].address.cityNm+'</div><div class="phone-code"> Phone : '+json.results.rstList[j].address.cntNum+'</div></div></li>';
+			attachListener(marker,content, infowindow);
+        }
+        
+        // for all store listing
+        var storeListBox = '<h3>Nearest Stores</h3><ul>' + outputlist + '</ul>';
+        document.getElementById("hk-store-listing").innerHTML = storeListBox;
+        google.maps.event.addListener(map, 'click', function () {
+	        infowindow.close();
+	    });
+
+    }
+}
+// Attach infowindow with listener event
+    function attachListener(marker,content, infowindow) {
+    	//alert("in");
+        google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+			    return function() {
+			       infowindow.setContent(content);
+			       infowindow.open(map,marker);
+			    };
+			})(marker,content,infowindow));
+        
+    }
+    
+    </script>
+         <script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Eo4Oo4XIwJm98idkI1yUbz11-dx0qUE&callback=initialize">
+</script>
+<script>
+
+ $(document).ready(function(){
+	$('#hk-store-listing ul li').hover(function(){
+		var placeId=$(this).data('id');
+	    if(markersArray.length>0){
+	     for(var i = 0; i < markersArray.length; i++){
+	       markersArray[i].setAnimation(null);
+	     }
+	    }
+		if (markersArray[parseInt(placeId)].getAnimation() != null) {
+		 markersArray[parseInt(placeId)].setAnimation(null);
+		} else {
+		 markersArray[parseInt(placeId)].setAnimation(google.maps.Animation.BOUNCE);        
+		}
+	}, function(){
+		var placeId=$(this).data('id');
+		setTimeout(function(){ markersArray[parseInt(placeId)].setAnimation(null); }, 750);
+	});
+ });
+</script>
+  </body>
+</html>

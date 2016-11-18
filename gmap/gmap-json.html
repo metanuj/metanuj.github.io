@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>gmap using json</title>
+	<style type="text/css">
+	.store-collection {
+		float: none;
+		margin:0 auto;
+		width: 1170px;
+		font-family: 'Lato', sans-serif;
+	}
+	.store-collection h2 {
+		text-align: center;
+	}
+	#hk-store-listing {
+		float: left;
+		width: 24%;
+		padding-right: 15px;
+		box-sizing: border-box;
+		height: 350px;
+		overflow-y:scroll;
+		overflow-x: hidden;
+		margin-right: 1%; 
+	}
+	#hk-store-listing ul {
+		padding: 0;
+	}
+	#hk-store-listing ul li{
+		list-style: none;
+		margin-bottom: 20px;
+	}
+	#hk-store-listing ul li:last-child {
+		margin-bottom: 0;
+	}
+	#hk-store-listing .store-name {
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #000;
+		font-weight: 600;
+	}
+	#map {
+		float: left;
+		width: 75% !important;
+	}
+
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	
+</head>
+<body >
+
+
+<div class="store-collection">
+<h2>Store Locator</h2>
+	<div id="hk-store-listing">
+	</div>
+	<div id="map" style="width:100%;height:350px"></div>
+</div>   
+<script type="text/javascript">
+var locs = [
+	{
+		"officeName" : "Brightlife Care",
+		"latitude" : 28.3757315,
+		"langitude" : 77.0681047,
+		"officeAddress1" : "HealthKart, Motorola Tower",
+		"officeAddress2" : "gurgaon,  122016",
+		"country" : "India",
+		"phone": "0141-588889"
+	},
+	{
+		"officeName" : "KAISER BAGH",
+		"latitude" : 26.8608635,
+		"langitude" : 80.9235387,
+		"officeAddress1" : "Store, 8B, Cantonment Road , Kaiser Bagh, Opp Good Bakery",
+		"officeAddress2" : "Lucknow,  226001",
+		"country" : "India",
+		"phone": "0131-5112233"
+	},
+	{
+		"officeName" : "Vaishali Nagar",
+		"latitude" : 26.9047751,
+		"langitude" : 75.7488641,
+		"officeAddress1" : "H-24, Jagdamba Tower, Amrapali Circle, Vaishali Nagar",
+		"officeAddress2" : "Jaipur, 302021",
+		"country" : "India",
+		"phone": "0141-5112233"
+	},
+	{
+		"officeName" : "Connaught Place",
+		"latitude" : 28.6314512,
+		"langitude" : 77.2166672,
+		"officeAddress1" : "L-26, Connaught Circus, Opposite PVR Plaza, New Delhi",
+		"officeAddress2" : "New Delhi, 110001",
+		"country" : "India",
+		"phone": "011-43658714"
+	}
+];
+var markersArray = [];
+// js for map start here
+function myMap() {
+	// initialize the gmap
+	var myOptions = {
+	  center: new google.maps.LatLng(28.4876667, 77.0881034),
+	  zoom: 6,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map"),myOptions);
+	var infowindow = new google.maps.InfoWindow({maxWidth: 200});
+	setMarkers(map,locs);
+	function setMarkers(map, json1) {
+		console.log("json1.length : " + json1.length);
+		var i, content, outputlist = "";
+		for(i=0; i<json1.length; i++){
+			var latLng = new google.maps.LatLng(json1[i].latitude, json1[i].langitude); 
+			var index = i;
+			// Creating a marker and putting it on the map
+			var marker = new google.maps.Marker({
+				map: map,
+			    position: latLng,
+			    title: json1[i].officeName
+			});
+			markersArray.push(marker);
+			map.setCenter(marker.getPosition());
+			
+			attachListener(marker,content, infowindow);
+			var geocoder = new google.maps.Geocoder();
+			
+            if (json1.length>0) {
+                var destination_url = results[1].formatted_address.split(' ').join('+') ;
+                console.log(destination_url);
+				var source = "Bright+Lifecare+Pvt.+Ltd.,+2nd+Floor,+Parsvnath+Arcadia,+T+01,+M+G+Road,+Sector-14,+Gurugram,+Haryana+122001,+India";
+
+				var comp_url  = "https://www.google.com/maps/dir/"+source+"/" + destination_url;
+				content = "<a href='#'>" + json1[i].officeName +  '</a>, ' + "<div>" + json1[i].officeAddress1 +"</div><div>"+ json1[i].officeAddress2 + "</div><div class='g-country'>"+json1[i].country+"</div><div class='g-phone'>Phone : "+json1[i].phone+"</div>" ;
+				
+				
+				outputlist += '<li data-id="'+i+'"><div class="store-inner-box"><a href="" class="store-name">' + json1[i].officeName + '</a><div class="hk-store-street1">' + json1[i].officeAddress1 + '</div><div class="hk-store-street2">'+json1[i].officeAddress2+'</div><div class="country">'+json1[i].country+'</div><div class="phone-code"> Phone : '+json1[i].phone+'</div><a href='+comp_url+'>Directions</a></div></li>';
+            }
+                    
+		}
+		// for all store listing
+        var storeListBox = '<h3>Nearest Stores</h3><ul>' + outputlist + '</ul>';
+        document.getElementById("hk-store-listing").innerHTML = storeListBox;
+
+	}
+	google.maps.event.addListener(map, 'click', function () {
+	        infowindow.close();
+	    });
+}
+// Attach infowindow with listener event
+function attachListener(marker,content, infowindow) {
+    google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+	    return function() {
+	       infowindow.setContent(content);
+	       infowindow.open(map,marker);
+	    };
+	})(marker,content,infowindow));
+}
+   
+</script>
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Eo4Oo4XIwJm98idkI1yUbz11-dx0qUE&callback=myMap">
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+ $(document).ready(function(){
+	$('#hk-store-listing ul li').hover(function(){
+		var placeId=$(this).data('id');
+	    if(markersArray.length>0){
+	     for(var i = 0; i < markersArray.length; i++){
+	       markersArray[i].setAnimation(null);
+	     }
+	    }
+		if (markersArray[parseInt(placeId)].getAnimation() != null) {
+		 markersArray[parseInt(placeId)].setAnimation(null);
+		} else {
+		 markersArray[parseInt(placeId)].setAnimation(google.maps.Animation.BOUNCE);        
+		}
+	}, function(){
+		var placeId=$(this).data('id');
+		setTimeout(function(){ markersArray[parseInt(placeId)].setAnimation(null); }, 750);
+	});
+ });
+</script>
+</body>
+</html>

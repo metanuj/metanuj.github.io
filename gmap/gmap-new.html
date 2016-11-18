@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Eo4Oo4XIwJm98idkI1yUbz11-dx0qUE&callback=">
+</script>
+
+<div id="map" style="width: 400px; height: 400px; float: right"></div>
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[0], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[0], 'click');">39steps office</a></h3>         
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[1], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[1], 'click');">Cineworld Glasgow</a></h3>  
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[2], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[2], 'click');">Laurence's Flat</a></h3> 
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[3], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[3], 'click');">Marybank</a></h3> 
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[4], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[4], 'click');">Shell Bay</a></h3>   
+
+<h3 class="ccm-page-list-title"><a onmouseover="javascript:google.maps.event.trigger(markersArray[5], 'dblclick');"  href="javascript:google.maps.event.trigger(markersArray[5], 'click');">Dingwall</a></h3> 
+
+<script type="text/javascript">
+    // Address and description arrays
+        
+    var addresses = ["EH3 6QH","7 Renfrew St, Glasgow","EH14 1PR","IV6 7UP","Shell Bay, Fife","IV15 9HU"];
+    var descriptions = ["39steps office","Cineworld Glasgow","Laurence's Flat","Marybank","Shell Bay","St Lawrence's, Dingwall"];    
+    
+    // Map styles
+    var mapStyles = [ { featureType: "landscape.man_made", stylers: [ { visibility: "off" } ] },{ featureType: "landscape.natural", stylers: [ { visibility: "off" } ] },{ featureType: "road", stylers: [ { visibility: "off" } ] },{ featureType: "transit.line", stylers: [ { visibility: "off" } ] },{ featureType: "transit.station", stylers: [ { visibility: "off" } ] },{ featureType: "poi.school", stylers: [ { visibility: "off" } ] },{ featureType: "poi.park", stylers: [ { visibility: "off" } ] },{ featureType: "poi.attraction", stylers: [ { visibility: "off" } ] },{ featureType: "poi.business", stylers: [ { visibility: "off" } ] },{ featureType: "poi.medical", stylers: [ { visibility: "off" } ] },{ featureType: "transit.station.airport", stylers: [ { visibility: "off" } ] },{ featureType: "road.highway", stylers: [ { visibility: "off" } ] },{ } ]
+    
+    
+    // Instantiate map variables
+    var styledMap = new google.maps.StyledMapType(mapStyles, {name: "SIS map"});
+    var mapOptions = {
+       
+        disableDefaultUI : true,
+        scrollwheel : false,
+        zoomControl : false,
+        disableDoubleClickZoom : true,
+        backgroundColor : "#ffffff",
+        mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'sis_map']
+        }
+    };
+    
+    
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map.mapTypes.set('sis_map',styledMap);
+    map.setMapTypeId('sis_map');
+    var geocoder = new google.maps.Geocoder();
+    var infowindow = new google.maps.InfoWindow();
+    var marker;
+    var bounds = new google.maps.LatLngBounds();
+    var markersArray = new Array();
+    
+    
+    
+    // Loop through postcodes
+    for(var i = 0; i < addresses.length; i++) {
+        geocode(addresses[i],descriptions[i],i);
+    }
+    
+    
+
+    // Get lat/long from postcodes
+    function geocode(address,desc,i) {
+        geocoder.geocode(
+            {
+                'address': address,
+                'region' : 'uk'
+            },
+            function(results, status){
+                if(status == google.maps.GeocoderStatus.OK) {
+                    var marker = new google.maps.Marker({
+                        position : results[0].geometry.location,
+                        map : map
+                    });
+                    
+                    markersArray[i] = marker;
+                    
+                    bounds.extend(marker.position);
+                    setBounds();
+
+                }
+                
+                attachListener(marker,desc);
+            }
+        );
+    }
+    
+    function setBounds() {
+        map.fitBounds(bounds);
+    }
+
+    // Attach infowindow with listener event
+    function attachListener(marker,desc) {
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(desc);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+        google.maps.event.addListener(marker, 'dblclick', (function(marker, i) {
+            return function() {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){ marker.setAnimation(null); }, 750);    
+            }
+        })(marker, i));
+    }
+    console.log(markersArray[2]);
+    </script>
+
+</body>
+</html>

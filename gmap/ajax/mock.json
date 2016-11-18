@@ -1,0 +1,38 @@
+[
+	{
+		"officeName" : "Brightlife Care",
+		"latitude" : 28.3757315,
+		"langitude" : 77.0681047,
+		"officeAddress1" : "HealthKart, Motorola Tower",
+		"officeAddress2" : "gurgaon,  122016",
+		"country" : "India",
+		"phone": "0141-588889"
+	},
+	{
+		"officeName" : "KAISER BAGH",
+		"latitude" : 26.8608635,
+		"langitude" : 80.9235387,
+		"officeAddress1" : "Store, 8B, Cantonment Road , Kaiser Bagh, Opp Good Bakery",
+		"officeAddress2" : "Lucknow,  226001",
+		"country" : "India",
+		"phone": "0131-5112233"
+	},
+	{
+		"officeName" : "Vaishali Nagar",
+		"latitude" : 26.9047751,
+		"langitude" : 75.7488641,
+		"officeAddress1" : "H-24, Jagdamba Tower, Amrapali Circle, Vaishali Nagar",
+		"officeAddress2" : "Jaipur, 302021",
+		"country" : "India",
+		"phone": "0141-5112233"
+	},
+	{
+		"officeName" : "Connaught Place",
+		"latitude" : 28.6314512,
+		"langitude" : 77.2166672,
+		"officeAddress1" : "L-26, Connaught Circus, Opposite PVR Plaza, New Delhi",
+		"officeAddress2" : "New Delhi, 110001",
+		"country" : "India",
+		"phone": "011-43658714"
+	}
+]

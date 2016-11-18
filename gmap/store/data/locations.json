@@ -1,0 +1,67 @@
+[  
+   {  
+      "id":"1",
+      "name":"Brightlife Care",
+      "lat":"28.3757315",
+      "lng":"77.0681047",
+      "address":"HealthKart, Motorola Tower",
+      "address2":"gurgaon,  122016",
+      "city":"gurgaon",
+      "state":"Haryana",
+      "postal":"122016",
+      "phone":"612-922-6662",
+      "web":"http:\/\/www.brightlife.com",
+      "hours1":"Mon-Sun 11am-10pm",
+      "hours2":"",
+      "hours3":""
+   },
+   {  
+      "id":"2",
+      "name":"KAISER BAGH",
+      "lat":"26.8608635",
+      "lng":"80.9235387",
+      "address":"Store, 8B, Cantonment Road , Kaiser Bagh, Opp Good Bakery",
+      "address2":"Lucknow,  226001",
+      "city":"Lucknow",
+      "state":"UP",
+      "postal":"226001",
+      "phone":"952-922-1970",
+      "web":"http:\/\/www.chipotle.com",
+      "hours1":"Mon-Sun 11am-10pm",
+      "hours2":"",
+      "hours3":""
+   },
+   {  
+      "id":"3",
+      "name":"Vaishali Nagar",
+      "lat":"26.9047751",
+      "lng":"75.7488641",
+      "address":"H-24, Jagdamba Tower, Amrapali Circle, Vaishali Nagar",
+      "address2":"Jaipur, 302021",
+      "city":"Jaipur",
+      "state":"Jaipur",
+      "postal":"302021",
+      "phone":"612-377-6035",
+      "web":"http:\/\/www.chipotle.com",
+      "hours1":"Mon-Sun 11am-10pm",
+      "hours2":"",
+      "hours3":""
+   },
+   {  
+      "id":"4",
+      "name":"Connaught Place",
+      "lat":"28.6314512",
+      "lng":"77.2166672",
+      "address":"L-26, Connaught Circus, Opposite PVR Plaza, New Delhi",
+      "address2":"New Delhi, 110001",
+      "city":"NewDelhi",
+      "state":"NewDelhi",
+      "postal":"111011",
+      "phone":"763-544-2530",
+      "web":"http:\/\/www.chipotle.com",
+      "hours1":"Mon-Sun 11am-10pm",
+      "hours2":"",
+      "hours3":""
+   }
+   
+]

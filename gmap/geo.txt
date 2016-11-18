@@ -1,0 +1,20 @@
+[
+	{
+		"officeName" : "Brightlife Care",
+		"latitude" : 28.3757315,
+		"langitude" : 77.0681047,
+		"officeAddress" : "HealthKart, Motorola Tower"
+	},
+	{
+		"officeName" : "Kellton Tech Solutions Ltd.",
+		"latitude" : 28.5076006,
+		"langitude" : 77.0850583,
+		"officeAddress" : "Plot no. 270, Kellton Tech Solutions Ltd. Udyog Vihar Phase 2"
+	},
+	{
+		"officeName" : "Cyber Hub",
+		"latitude" : 28.4876667,
+		"langitude" : 77.0881034,
+		"officeAddress" : "DLF Phase 2 Cyber city Gurgaon"
+	}
+];

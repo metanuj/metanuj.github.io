@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>gmap using json</title>
+<link rel="stylesheet" type="text/css" href="store/assets/css/storelocator.css" />
+	<style type="text/css">
+	.store-collection {
+		float: none;
+		margin:0 auto;
+		width: 1170px;
+		font-family: 'Lato', sans-serif;
+	}
+	.store-collection h2 {
+		text-align: center;
+	}
+	#hk-store-listing {
+		float: left;
+		width: 24%;
+		padding-right: 15px;
+		box-sizing: border-box;
+		height: 350px;
+		overflow-y:scroll;
+		overflow-x: hidden;
+		margin-right: 1%; 
+	}
+	#hk-store-listing ul {
+		padding: 0;
+	}
+	#hk-store-listing ul li{
+		list-style: none;
+		margin-bottom: 20px;
+	}
+	#hk-store-listing ul li:last-child {
+		margin-bottom: 0;
+	}
+	#hk-store-listing .store-name {
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #000;
+		font-weight: 600;
+	}
+	#map {
+		float: left;
+		width: 75% !important;
+	}
+
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body >
+
+
+<div class="store-collection">
+<div class="store-collection bh-sl-container">
+    <h2>Store Locator</h2>
+    <div class="bh-sl-form-container store-search">
+        <form id="bh-sl-user-location" method="post" action="#" class="store-search-form">
+            <div class="form-input input-box">
+                <label for="bh-sl-address">Your Location:</label>
+                <input type="text" id="bh-sl-address" name="bh-sl-address" placeholder="Enter PIN Code, City"/>
+                <select id="bh-sl-maxdistance" name="bh-sl-maxdistance">
+                    <option value="10">10 km</option>
+                    <option value="20">20 km</option>
+                    <option value="25">25 km</option>
+                    <option value="50">50 km</option>
+                    <option value="100">100 km</option>
+                    <option value="200">200 km</option>
+                    <option value="500">500 km</option>
+                    <option value="1000">1000 km</option>
+                    <option value="2000">2000 km</option>
+                    <option value="5000">5000 km</option>
+                </select>
+            </div>
+
+            <button id="bh-sl-submit" type="button" class="btn btn-blue store-search-btn">Submit</button>
+        </form>
+    </div>
+    <div id="bh-sl-map-container" class="bh-sl-map-container">
+        <div id="map" style="width:100%;height:350px"></div>
+        <div id="hk-store-listing"> </div>
+            
+    </div>
+        
+</div>
+  
+<script type="text/javascript">
+var locs = [
+	{
+		"officeName" : "Brightlife Care",
+		"latitude" : 28.3757315,
+		"langitude" : 77.0681047,
+		"officeAddress1" : "HealthKart, Motorola Tower",
+		"officeAddress2" : "gurgaon,  122016",
+		"country" : "India",
+		"phone": "0141-588889"
+	},
+	{
+		"officeName" : "KAISER BAGH",
+		"latitude" : 26.8608635,
+		"langitude" : 80.9235387,
+		"officeAddress1" : "Store, 8B, Cantonment Road , Kaiser Bagh, Opp Good Bakery",
+		"officeAddress2" : "Lucknow,  226001",
+		"country" : "India",
+		"phone": "0131-5112233"
+	},
+	{
+		"officeName" : "Vaishali Nagar",
+		"latitude" : 26.9047751,
+		"langitude" : 75.7488641,
+		"officeAddress1" : "H-24, Jagdamba Tower, Amrapali Circle, Vaishali Nagar",
+		"officeAddress2" : "Jaipur, 302021",
+		"country" : "India",
+		"phone": "0141-5112233"
+	},
+	{
+		"officeName" : "Connaught Place",
+		"latitude" : 28.6314512,
+		"langitude" : 77.2166672,
+		"officeAddress1" : "L-26, Connaught Circus, Opposite PVR Plaza, New Delhi",
+		"officeAddress2" : "New Delhi, 110001",
+		"country" : "India",
+		"phone": "011-43658714"
+	}
+];
+    var markersArray = [];
+    var destination_url = [];
+    var distanceArray = [];
+    var distanceArrayUpdate = [];
+    var pinandlengthArray = [];
+    function initialize() {
+        var myOptions = {
+            center: new google.maps.LatLng(28.4876667, 77.0881034),
+            zoom: 6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        var input = document.getElementById('bh-sl-address');
+       // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        var infowindow = new google.maps.InfoWindow({maxWidth: 200});
+
+        setMarkers(map);
+        google.maps.event.addListener(map, 'click', function () {
+            infowindow.close();
+        });
+
+        //setMarkers(origin, radius, map, destination);
+        function setMarkers(map) {
+            var i, outputlist = "";
+
+           // var json = ${RetailStoreAction.locationJsonObj};
+           var json = locs;
+            for(var j=0; j<json.length; j++){
+                console.log("Length"+ json.length);
+//                       console.log("latitude :" + json[j].address.lat);
+                var data = json[j],
+                        latLng = new google.maps.LatLng(data.latitude, data.langitude);
+                
+                // Creating a marker and putting it on the map
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: latLng,
+                    title: json[j].officeName
+                });
+                markersArray.push(marker);
+                map.setCenter(marker.getPosition());
+                var distanceKms = getDistanceFromLatLonInKm(28.4876667,77.0881034,data.latitude,data.langitude,'km');
+                
+                destination_url.push(distanceKms.toFixed(2));
+               // distanceArrayUpdate.push(distanceKms.toFixed(2));
+
+                distanceArray = destination_url.sort(function(a, b){return a - b});
+                console.log("distance in kms : " + distanceKms);
+                var content = "<a href='#'>" + json[j].officeName +  '</a>, ' + "<div>" + json[j].officeAddress1 + "</div><div>"+ json[j].officeAddress2 + "</div><div class='g-country'>"+json[j].country+"</div><div class='g-phone'>Phone : "+json[j].phone+"</div>" ;
+                
+                
+                attachListener(marker,content, infowindow);
+            }
+             for(var k=0; k<json.length; k++){
+             	var index = k;
+             	var data = json[k];
+             	var distanceKms = getDistanceFromLatLonInKm(28.4876667,77.0881034,data.latitude,data.langitude,'km');
+             	console.log("distance in kms in sec: " + distanceArray);
+             	var maxDistance = distanceKms.toFixed(2);
+             	if(maxDistance == distanceArray[k]){
+	             	
+	             	outputlist += '<li data-id="'+k+'"><div class="store-inner-box"><a href="" class="store-name">' + json[k].officeName + '</a><div class="hk-store-street1">' + json[k].officeAddress1 + '</div><div class="hk-store-street2">'+json[k].officeAddress2+'</div><div class="country">'+json[k].country+'</div><div class="phone-code"> Phone : '+json[k].phone+'</div><div class=""><b>'+maxDistance+' kms</b></div></div></li>';
+	             	
+	             }
+	             else {
+	             	outputlist += '<li data-id="'+k+'"><div class="store-inner-box"><a href="" class="store-name">' + json[k].officeName + '</a><div class="hk-store-street1">' + json[k].officeAddress1 + '</div><div class="hk-store-street2">'+json[k].officeAddress2+'</div><div class="country">'+json[k].country+'</div><div class="phone-code"> Phone : '+json[k].phone+'</div><div class=""><b>'+distanceArray[0]+' kms</b></div></div></li>';
+	             	
+	             }
+	             distanceArray.shift();
+             }
+             $("#bh-sl-submit").on("click",function(){
+		     	var pinInput = $("#bh-sl-address").val();
+		     	//var kmsInput = $("#bh-sl-maxdistance :selected").val();
+		     	//console.log("kmsInput" + kmsInput);
+		     	if(pinInput == ""){
+		     		$("#bh-sl-address").focus();
+		     	}
+		     	else {
+		     		pinandlengthArray = "";
+         			for(var k=0; k<json.length; k++){
+		             	var data = json[k],
+		                        latLng = new google.maps.LatLng(data.latitude, data.langitude);
+		                 var distanceKms = getDistanceFromLatLonInKm(28.4876667,77.0881034,data.latitude,data.langitude,'km');
+            			distanceArrayUpdate.push(distanceKms.toFixed(2));
+           				pinandlengthArray = distanceArrayUpdate.sort(function(a, b){return a - b});
+		                
+		        	}
+			            //infowindow.close();
+			            //marker.setVisible(false);
+			            var place = autocomplete.getPlace();
+			            if (!place.geometry) {
+			                // User entered the name of a Place that was not suggested and
+			                // pressed the Enter key, or the Place Details request failed.
+			                window.alert("No details available for input: '" + place.name + "'");
+			                return;
+			            }
+			            var autoDistance = getDistanceFromLatLonInKm(28.4876667,77.0881034,place.geometry.location.lat(),place.geometry.location.lng(),'km');
+
+			            var roundAutoDistance = autoDistance.toFixed(2);
+			            autoListUpdate(roundAutoDistance);
+
+			            console.log("Autocomplete distance : "+ roundAutoDistance);
+
+			           // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+			            //infowindow.open(map, marker);
+			        
+		     	}
+		     });
+             function autoListUpdate(autoD){
+             	var roundF = parseInt(autoD);
+             //	if(roundF > inputOptionKms){
+             		//$("#hk-store-listing ul").html("<div class='no-result'>no result found</div>");
+             //	}
+             	if(roundF === 'undefined'){
+             		$("#hk-store-listing ul").html("<div class='no-result'>no result found</div>");
+             	}
+             	else {
+             			//alert("else in");
+             			$("#hk-store-listing .no-result").remove();
+             			$("#hk-store-listing ul").empty();
+             			console.log("json.length:" +json.length);
+						console.log("distance in kms in third: " + pinandlengthArray);
+             			for(var m=0; m<json.length; m++){
+			             	var index = m;
+			             	var data = json[m],
+			                        latLng = new google.maps.LatLng(data.latitude, data.langitude);
+			                
+			                // Creating a marker and putting it on the map
+			                var marker = new google.maps.Marker({
+			                    map: map,
+			                    position: latLng,
+			                    title: json[m].officeName
+			                });
+			                markersArray.push(marker);
+			                map.setCenter(marker.getPosition());
+			                var content = "<a href='#'>" + json[m].officeName +  '</a>, ' + "<div>" + json[m].officeAddress1 + "</div><div>"+ json[m].officeAddress2 + "</div><div class='g-country'>"+json[m].country+"</div><div class='g-phone'>Phone : "+json[m].phone+"</div>" ;
+			                	
+             				
+			                var narr = parseInt(pinandlengthArray[m]);
+			             	if(narr < roundF){
+				             	console.log(parseInt(pinandlengthArray[m]));
+				             	$("#hk-store-listing ul").append('<li data-id="'+m+'"><div class="store-inner-box"><a href="" class="store-name">' + json[m].officeName + '</a><div class="hk-store-street1">' + json[m].officeAddress1 + '</div><div class="hk-store-street2">'+json[m].officeAddress2+'</div><div class="country">'+json[m].country+'</div><div class="phone-code"> Phone : '+json[m].phone+'</div><div class=""><b>'+pinandlengthArray[m]+' kms</b></div></div></li>');
+				             	
+				             }
+				             else {
+				             	console.log("Array Values: " + pinandlengthArray[m] );
+				             }
+				              
+				             //pinandlengthArray.shift();
+				             //attachListener(marker,content, infowindow);
+			             }
+             		}
+	             	
+		        
+             }
+
+            // for all store listing
+            var storeListBox = '<h3>Nearest Stores</h3><ul>' + outputlist + '</ul>';
+            document.getElementById("hk-store-listing").innerHTML = storeListBox;
+        }
+    }
+    // Attach infowindow with listener event
+    function attachListener(marker,content, infowindow) {
+        google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+            return function() {
+                infowindow.setContent(content);
+                infowindow.open(map,marker);
+            };
+        })(marker,content,infowindow));
+    }
+    function getDistanceFromLatLonInKm(latitude1,longitude1,latitude2,longitude2,units) {
+	  	var p = 0.017453292519943295;    //This is  Math.PI / 180
+	  	var c = Math.cos;
+	  	var a = 0.5 - c((latitude2 - latitude1) * p)/2 + 
+	          c(latitude1 * p) * c(latitude2 * p) * 
+	          (1 - c((longitude2 - longitude1) * p))/2;
+	  	var R = 6367; //  Earth distance in km so it will return the distance in km
+	 	return 2 * R * Math.asin(Math.sqrt(a)); 
+		 
+	}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB1Eo4Oo4XIwJm98idkI1yUbz11-dx0qUE&language=en&#038;&region=in&#038;&callback=initialize">
+        </script>
+
+<script>
+    $(document).ready(function(){
+        $('#hk-store-listing ul li').hover(function(){
+            var placeId=$(this).data('id');
+            if(markersArray.length>0){
+                for(var i = 0; i < markersArray.length; i++){
+                    markersArray[i].setAnimation(null);
+                }
+            }
+            if (markersArray[parseInt(placeId)].getAnimation() != null) {
+                markersArray[parseInt(placeId)].setAnimation(null);
+            } else {
+                markersArray[parseInt(placeId)].setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }, function(){
+            var placeId=$(this).data('id');
+            setTimeout(function(){ markersArray[parseInt(placeId)].setAnimation(null); }, 750);
+        });
+        $('#hk-store-listing ul li:first-child').addClass("active");
+        $('#hk-store-listing ul').on("click", "li", function () {
+            var placeId=$(this).data('id');
+            $("#hk-store-listing ul li").removeClass("active");
+            $(this).addClass("active");
+            google.maps.event.trigger(markersArray[parseInt(placeId)],'click');
+                setTimeout(function(){ markersArray[parseInt(placeId)].setAnimation(null); });
+        });
+
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Javascript Demo</title>
+<script type="text/javascript">
+function getDistanceFromLatLonInKm(latitude1,longitude1,latitude2,longitude2,units) {
+  var p = 0.017453292519943295;    //This is  Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((latitude2 - latitude1) * p)/2 + 
+          c(latitude1 * p) * c(latitude2 * p) * 
+          (1 - c((longitude2 - longitude1) * p))/2;
+  var R = 6367; //  Earth distance in km so it will return the distance in km
+ var dist = 2 * R * Math.asin(Math.sqrt(a)); 
+document.getElementById("output").innerHTML = dist+"Km"; 
+}
+</script>
+</head>
+<body>
+<p>Latitude 1 = 40.7128, Longitude 1 = 74.0059 (New York) </p>
+<p>Latitude 2 = 51.5074, Longitude 2 = 0.1278 (London)</p>
+
+<p>Distance Between London And New York is <span id="output"></span></p>
+<a href="javascript:void(0)" onclick="getDistanceFromLatLonInKm(28.4876667,77.0881034,28.3757315,77.0681047,'km')">Get Distance</a>
+</body>
+</html>                            

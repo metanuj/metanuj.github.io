@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Map Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/storelocator.css" />
+  </head>
+
+  <body>
+    
+    <div class="bh-sl-container">
+      <div id="page-header">
+        <h1 class="bh-sl-title">Store Locator</h1>
+     
+      </div>
+      
+      <div class="bh-sl-form-container">
+        <form id="bh-sl-user-location" method="post" action="#">
+            <div class="form-input">
+              <label for="bh-sl-address">Enter Address or Zip Code:</label>
+              <input type="text" id="bh-sl-address" name="bh-sl-address" />
+              <select id="bh-sl-maxdistance" name="bh-sl-maxdistance">
+                <option value="20">20 km</option>
+                <option value="25">25 km</option>
+                <option value="50">50 km</option>
+                <option value="100">100 km</option>
+                <option value="200">200 km</option>
+                <option value="500">500 km</option>
+                <option value="1000">1000 km</option>
+                <option value="2000">2000 km</option>
+                <option value="5000">5000 km</option>
+              </select>
+            </div>
+            
+            <button id="bh-sl-submit" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div id="bh-sl-map-container" class="bh-sl-map-container">
+        <div id="bh-sl-map" class="bh-sl-map"></div>
+        <div class="bh-sl-loc-list">
+          <ul class="list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="assets/js/handlebars.min.js"></script>
+   <script 
+  src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB1Eo4Oo4XIwJm98idkI1yUbz11-dx0qUE&language=en&#038;&region=in&#038;&callback=">
+</script>
+    <script src="assets/js/jquery.storelocator.js"></script>
+
+		<script>
+			$(function() {
+        
+				$('#bh-sl-map-container').storeLocator({
+          'autoComplete': true,
+          'slideMap' : false,
+          'defaultLoc': true,
+          'defaultLat': '28.4876667',
+          'defaultLng' : '77.0881034',
+          'maxDistance': true,
+          'lengthUnit':'km'
+        });
+			});
+		</script>
+
+  </body>
+</html>

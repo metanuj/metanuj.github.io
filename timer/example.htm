@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript example</title>
+</head>
+<body>
+<div class="elem">FDF</div>
+<script type="text/javascript">
+	let user = {
+		name:"Johan Botha",
+		money : 100,
+		/*[Symbol.toPrimitive](hint){
+			alert(`hint: ${hint}`);
+			return hint == "string" ? `{name: "${this.name}"}` : this.money;
+		}*/
+		toString(){
+			return `{name:"${this.name}"}`;
+		}/*,
+		valueOf(){
+			return this.money;
+		}*/
+	};
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript Game</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+            background: url('http://orig07.deviantart.net/93af/f/2012/224/8/7/game_background_by_garbo_x-d5asm0x.png');
+            margin: 0 auto;
+            display: inherit;
+        }
+        h1{
+            text-align: center;
+            display: block;
+            user-select: none;
+        }
+		
+		@media (max-width:767px){
+		  canvas {width:100%;}
+		  h1{display:none;}
+		}
+    </style>
+</head>
+
+<body>
+    <h1>Canvas Game</h1>
+    <canvas width="600" height="360" id="mycanvas"></canvas>
+    <script>
+        window.addEventListener('load', function () {
+            var movePlayer = function () {
+                player.ismoving = true
+            }
+            var stopPlayer = function () {
+                player.ismoving = false
+            }
+            var canvas = document.getElementById('mycanvas');
+            var ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('mousedown', movePlayer);
+            canvas.addEventListener('mouseup', stopPlayer);
+            canvas.addEventListener('touchstart', movePlayer);
+            canvas.addEventListener('touchstop', stopPlayer);
+
+            var GAME_WIDTH = 600;
+            var GAME_HEIGHT = 360;
+            var gameLive = true;
+
+            var enimies = [
+                {
+                    x: 100,
+                    y: 100,
+                    speedY: 1,
+                    w: 40,
+                    h: 40
+                },
+                {
+                    x: 200,
+                    y: 100,
+                    speedY: 3,
+                    w: 40,
+                    h: 40
+                },
+                {
+                    x: 300,
+                    y: 100,
+                    speedY: 2,
+                    w: 40,
+                    h: 40
+                },
+                {
+                    x: 400,
+                    y: 100,
+                    speedY: 4,
+                    w: 40,
+                    h: 40
+                },
+            ]
+            var player = {
+                x: 0,
+                y: 150,
+                speedX: 2,
+                w: 40,
+                h: 40,
+                ismoving: false
+            }
+
+            var goal = {
+                x: 560,
+                y: 150,
+                w: 40,
+                h: 40
+            }
+
+            function update() {
+
+                if (checkCollision(player, goal)) {
+                    gameLive = false;
+                    alert('You won');
+                    window.location = '';
+                }
+
+                if (player.ismoving) {
+                    player.x += player.speedX;
+                }
+
+                enimies.forEach(function (element) {
+                    if (checkCollision(player, element)) {
+                        gameLive = false;
+                        alert('Game Over');
+                        window.location = '';
+                    }
+                    element.y += element.speedY
+
+                    if (element.y <= 10) {
+                        element.y = 10;
+                        element.speedY *= -1
+                    }
+                    else if (element.y >= GAME_HEIGHT - 50) {
+                        element.y = GAME_HEIGHT - 50;
+                        element.speedY *= -1;
+                    }
+                })
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+                ctx.fillStyle = 'orange',
+                    ctx.fillRect(player.x, player.y, player.w, player.h)
+
+
+                ctx.fillStyle = 'blue';
+                enimies.forEach(function (element) {
+                    ctx.fillRect(element.x, element.y, element.w, element.h)
+                })
+
+                ctx.fillStyle = 'black';
+                ctx.fillRect(goal.x, goal.y, goal.w, goal.h);
+            }
+
+            var step = function () {
+                update();
+                draw();
+
+                if (gameLive) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+
+            var checkCollision = function (rect1, rect2) {
+                var closeonWidth = Math.abs(rect1.x - rect2.x) <= Math.max(rect1.w, rect2.w);
+                var closeonHeigh = Math.abs(rect1.y - rect2.y) <= Math.max(rect1.h, rect2.h);
+                return closeonWidth && closeonHeigh;
+            }
+            step()
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<html>
+<head>
+	<style>
+		.timer-container {
+			margin:0 auto;
+			width:517px;
+			position:absolute;
+			top:140px;
+			left:0;
+			right:0;
+		}
+		.timer {
+			height: 100px;
+		}
+		
+		.timer .timer-bg, .timer .timer-half-container, .timer .timer-half {
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			border-top-left-radius: 50px;
+			border-top-right-radius: 50px;
+			border-top-right-radius: 50px;
+			border-bottom-right-radius: 50px;
+			border-bottom-left-radius: 50px;
+			border-bottom-right-radius: 50px;
+			border-top-left-radius: 50px;
+			border-bottom-left-radius: 50px;
+		}
+		.timer[data-duration="-34"] .timer-bg {
+			color: #E53935;
+		}
+		.timer .timer-bg {
+			border: 6px solid #BDBDBD;
+			text-align: center;
+			line-height: 88px;
+			vertical-align: baseline;
+			font-size: 1.5em;
+		}
+		.timer[data-duration="-34"] .timer-half.right {
+			border: 6px solid #E57373;
+			-webkit-transform: rotate(-24deg);
+			-moz-transform: rotate(-24deg);
+			-ms-transform: rotate(-24deg);
+			-o-transform: rotate(-24deg);
+			transform: rotate(-24deg);
+		}
+		.timer .timer-half-container .timer-half {
+			clip: rect(0px, 50px, 100px, 0px);
+		}
+		.timer .timer-half-container.left {
+			-webkit-transform: rotate(180deg);
+			-moz-transform: rotate(180deg);
+			-ms-transform: rotate(180deg);
+			-o-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
+		.timer[data-duration="-34"] .timer-half.left {
+			border: 6px solid #E57373;
+			-webkit-transform: rotate(-180deg);
+			-moz-transform: rotate(-180deg);
+			-ms-transform: rotate(-180deg);
+			-o-transform: rotate(-180deg);
+			transform: rotate(-180deg);
+		}
+		.timer .timer-half-container {
+			clip: rect(0px, 100px, 100px, 50px);
+		}
+		.right {
+			float: right;
+		}
+		.left {
+			float:left;
+		}
+		* {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	</style>
+</head>
+<body>
+	<div class="timer-container">
+		<div id="timer-42" class="timer" data-duration="-34">
+			<div class="timer-bg">
+				<span class="duration">-31</span>
+				<small class="unit">m</small>
+			</div>
+			<div class="timer-half-container right">
+				<div class="timer-half right"></div>
+			</div>
+			<div class="timer-half-container left">
+				<div class="timer-half left"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

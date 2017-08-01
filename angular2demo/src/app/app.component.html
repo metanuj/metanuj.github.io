@@ -1,0 +1,23 @@
+<layout-header [name]="name"
+  (onNameChanged)="setName($event)"> </layout-header>
+<h1>
+  {{title}}
+</h1>
+<p boldHover>Lorem Ipsum Lorem Ipsum Lorem Ipsum
+  </p>
+<p *ngIf='titleStatus'>
+    Condtional Statements
+</p>
+<ul>
+  <li *ngFor='let list of appList'>{{list.ID}}{{list.Name}}</li>
+</ul>
+<div>{{value}}</div>
+
+<ul class="routing-links"> 
+  <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a  [routerLink] = "['/product']">Product</a></li> 
+  <li routerLinkActive="active"><a  [routerLink] = "['/inventory', 123]">Inventory</a></li>
+  <li routerLinkActive="active"><a  [routerLink] = "['/contactForm']">contactForm</a></li> 
+  <li routerLinkActive="active"><a  [routerLink] = "['/reactiveForm']">ReactiveForm</a></li> 
+  <li routerLinkActive="active"><a  [routerLink] = "['/reactiveScoth']">Reactive Scoth</a></li>  
+</ul> 
+<router-outlet></router-outlet>

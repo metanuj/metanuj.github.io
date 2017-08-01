@@ -1,0 +1,14 @@
+<h2>Contact From start here</h2>
+
+<form #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)">
+    <div>
+        <input type="text" name="uname"  placeholder="enter the name..." [(ngModel)]="uname">
+    </div>
+    <div>
+        <input type="text" name="age" placeholder="enter the age..." [(ngModel)]="age">
+    </div>
+    <div>
+        <input type="text" name="mobile" placeholder="enter the mobile no." [(ngModel)]="mobile">
+    </div>
+    <input type="submit" value="Click Here">
+</form>

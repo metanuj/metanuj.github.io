@@ -1,0 +1,19 @@
+<div class = "container"> 
+   <h1>Contact Form</h1> 
+   <form> 
+      <div class = "form-group"> 
+         <label for = "productid">Name</label> 
+         <input type = "text" class = "form-control" id = "productid" required 
+            [(ngModel)] = "model.uname" name = "id"> 
+      </div> 
+      
+      <div class = "form-group"> 
+         <label for = "name">Phone no.</label> 
+         <input type = "text" class = "form-control" id = "name" 
+            [(ngModel)] = "model.uphone" name = "name">
+      </div>
+      <div class="form-group">
+        <input type = "button" (click) = "addContactList()" value="Add List"> 
+      </div> 
+   </form> 
+</div>

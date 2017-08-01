@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
+    <input formControlName="email" type="email" placeholder="Your email">
+    <input formControlName="password" type="password" placeholder="Your password">
+  <button type="submit">Log in</button>
+</form>
+
+<ul>
+    <li *ngFor="let uList of userList; let i=index" (click) = 'romoveList(i)'>
+        {{i}}{{uList.email}} {{uList.password}}
+    </li>
+</ul>

@@ -1,0 +1,34 @@
+<h3>Reactive froms</h3>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" [formControl]="username">
+    <span [hidden]="username.valid || username.untouched" class="error">
+      Error! username
+    </span>
+    <span [hidden]="!username.hasError(required)" class="error">
+      Username is required.
+    </span> 
+    <span [hidden]="!username.hasError('minlength')" class="error">
+      Username can not be shorter than 5 characters.
+    </span>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" [formControl]="password"> 
+    <span [hidden]="password.valid || password.untouched" class="error">
+      Error! password
+    </span>
+    <span [hidden]="!password.hasError(required)" class="error">
+      Password is required.
+    </span>
+    <span [hidden]="!password.hasError('needsExclamation')" class="error">
+      Password must contains ! mark.
+    </span>
+    <span [hidden]="!password.hasError('ampersandRequired')" class="error">
+      Password must contains & mark.
+    </span>
+  </div>
+  <button type="submit" [disabled]="!loginForm.valid">Save Info</button>
+</form>

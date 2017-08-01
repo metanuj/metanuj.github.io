@@ -1,0 +1,44 @@
+<h2>User Contact Information</h2>
+<div class="contactlist-container">
+    <div class="contactlist-form">
+        <form #contactForm="ngForm" (ngSubmit)="saveInfo(contactForm)">
+            <div class="form-group">
+                <input type="text" placeholder="Enter the name..." name="cname" [(ngModel)]="cname">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter the phone no..." name="cphone" [(ngModel)]="cphone">
+            </div>
+            <div class="form-group">
+                <span *ngIf="saveIButton">
+                    <input type="submit" value="Save Info" class="btn btn-primary">
+                </span>
+                <span *ngIf="updateIButton">
+                    <input type="button" value="Update Info" class="btn btn-primary" (click)="updateInfo(contactForm)">
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="contactlists">
+        <table *ngIf="uArray.length > 0">
+            <thead >
+                <tr>
+                    <th>Sr. no.</th>
+                    <th>Name</th>
+                    <th>Phone no.</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let list of uArray; let i= index">
+                    <td>{{i+1}}</td>
+                    <td>{{list.name}}</td>
+                    <td>{{list.phone}}</td>
+                    <td>
+                        <span class="btn btn-default" (click)="editContactList(contactForm,list, i)">Edit</span>
+                        <span class="btn btn-danger" (click)="removeElement(i)">Remove</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

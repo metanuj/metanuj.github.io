@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+*{
+    box-sizing: border-box;
+}
+.wrapper {
+    margin: 0 auto;
+    max-width: 1170px;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+li {
+    list-style: none;
+}
+header {
+    background: #efefef;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+header ul li{
+    display: inline-block;
+    padding: 5px 10px;
+}
+header ul li.active {
+    background: #333;
+    border-radius: 3px;
+}
+header ul li.active a {
+    color: #fff;
+}
+header ul li a {
+    text-decoration: none;
+}

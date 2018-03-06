@@ -1,0 +1,134 @@
+/*
+Theme Name:jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_mixins.scss
+ *
+ * CSS rules that style HTML elements ("mixins" styles). */
+// border-radius mixin
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+// box shadow mixin
+
+@mixin box-shadow($args...) {
+  -webkit-box-shadow: $args;
+     -moz-box-shadow: $args; 
+     -ms-box-shadow: $args;      
+          box-shadow: $args;
+}
+
+// reset box model 
+
+@mixin reset-box-model {
+	margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+// no-bullets mixin
+
+@mixin no-bullets {
+	 list-style: none;
+}
+
+// clearfix mixin 
+@mixin clearfix {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+// transition mixin
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+// transform mixin
+@mixin transform($args...) {
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+
+// filter color mixin
+@mixin filter($filter){
+  filter: $filter;
+  -webkit-filter: $filter;
+  -moz-filter: $filter;
+}
+
+// full width mixin
+@mixin full-width {
+  float: left;
+  width: 100%;
+}
+
+// text hidden mixin
+
+@mixin text-overflow(){
+  text-overflow: ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+// font size, weight, color mixin 
+
+@mixin textSWC($size, $weight, $color){
+  font-size: $size;
+  font-weight:$weight;
+  color:$color;
+}
+
+// display flex
+
+@mixin display-flex(){
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+// align items center
+@mixin align-items($var){
+	-webkit-box-align: $var;
+	-moz-box-align: $var;
+	-webkit-align-items: $var;
+	-ms-flex-align: $var;
+	align-items: $var;
+}
+// Justify content center
+
+@mixin justify-content($var){
+	-webkit-box-pack: $var;
+    -moz-box-pack: $var;
+    -webkit-justify-content: $var;
+    -ms-flex-pack: $var;
+    justify-content: $var;
+}
+
+// Flex-direction mixin
+
+@mixin flex-direction-column(){
+	-webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}

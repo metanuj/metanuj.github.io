@@ -1,0 +1,210 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_forms.scss
+ *
+ * CSS rules that style HTML elements ("forms" styles). */
+ fieldset {
+  margin: 0;
+  padding: 0;
+  border:0;
+  legend{
+    padding: 0;
+  }
+ }
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  color: #464a4c;
+  background: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 0;
+  border-bottom: 1px solid $borderColor;
+  @include border-radius(0);
+  padding-left: 0;
+  @include transition( border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s);
+}
+ #{$all-text-inputs}, select {
+  border: 0;
+  border-bottom: 1px solid $borderColor;
+  @include border-radius(0);
+  padding-left: 0;
+  &:focus {
+    border-color: $blueColor;
+    outline: 0;
+    @include transition(border-color ease-in-out 0.15s);
+  }
+  &:disabled {
+    background-color: $borderColor;
+    cursor: not-allowed;
+  }
+}
+select[multiple=multiple] {
+  height:auto;
+}
+select::-ms-expand {
+    display: none;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.select-div {
+  position: relative;
+  &:after {
+    content: "";
+    background: url("../images/down_arrow.png");
+    width: 11px;
+    height: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+textarea {
+  resize: none;
+  height:163px;
+  background:$whiteColor;
+  border:1px solid #aaa;
+  @include border-radius(10px);
+}
+input[type="search"] {
+  appearance: none;
+}
+
+.form-group {
+  position: relative;
+  padding-top: 15px;
+  margin-bottom: 5em;
+  .form-control {
+    &:focus {
+      ~ label {
+        color: #83919d;
+        font-size: 12px;
+        top: 0;
+        opacity: 1;
+      }
+    }
+    ~ label {
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      width: 100%;
+      pointer-events: none;
+      color: #adb9be;
+      font-size: 16px;
+      margin-bottom: 0;
+      @include transition(0.2s ease all);
+      opacity: 0.8;
+    }
+  }
+  label {
+    &.input-focus {
+       color: #83919d;
+        font-size: 12px;
+        top: 0;
+        opacity: 1;
+    }
+  }
+}
+/* label {
+  input[type="radio"] {
+    display: none;
+    &:checked {
+      + span {
+        &:before {
+           background: $blackColor;
+        }
+      }
+    }
+    + span {
+      display: inline-block;
+      padding: 0 40px;
+      vertical-align: top;
+      cursor: pointer;
+      position: relative;
+      @include textSWC(16px, 400, #515d6a);
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        top: 4px;
+        left: 4px;
+        width: 11px;
+        height: 11px;
+        @include border-radius(50%);
+        transition: background .2s ease-in-out;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 17px;
+        height: 17px;
+        @include border-radius(50%);
+        border:1px solid #999;
+        pointer-events: none;
+      }
+    }
+  }
+  
+}*/
+label {
+  input[type="checkbox"] {
+    display: none;
+    &:checked {
+      + span {
+        &:after {
+          background: #1fa6dd;
+        }
+        &:before {
+           content: '✔';
+           color: $whiteColor;
+        }
+      }
+    }
+    + span {
+      display: inline-block;
+      padding: 0 20px 0 0;
+      vertical-align: top;
+      cursor: pointer;
+      position: relative;
+      @include textSWC(16px, 400, #515d6a);
+      &:before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        width: 16px;
+        height: 16px;
+        transition: background .2s ease-in-out;
+        font-size: 14px;
+        text-align: center;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        background: #e2e8f0;
+      }
+    }
+  }
+  
+} 
+

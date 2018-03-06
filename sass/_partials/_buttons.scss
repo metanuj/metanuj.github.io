@@ -1,0 +1,87 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_buttons.scss
+ *
+ * CSS rules that style HTML elements ("buttons" styles). */
+
+.btn {
+  @include border-radius(4.375rem);
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 2.1875rem 3rem;
+  font-size: 2.625em;
+  @include transition(all .2s ease-in-out);
+  color: $whiteColor;
+  cursor: pointer;
+  &.btn-info {
+    @include box-shadow(0 4px 5px rgba(#1690be, 0.4));
+    background: rgb(30,87,153); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(30,87,153,1) 0%, rgba(23,119,198,1) 0%, rgba(0,156,215,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(30,87,153,1) 0%,rgba(23,119,198,1) 0%,rgba(0,156,215,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(30,87,153,1) 0%,rgba(23,119,198,1) 0%,rgba(0,156,215,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#009cd7',GradientType=1 ); /* IE6-9 */
+  }
+  &.btn-info-unfilled {
+    color: #0693cf;
+    border: 1px solid #097bab;
+  }
+  &.btn-default-unfilled {
+    color: #616778;
+    border: 1px solid #616778;
+  }
+  &.btn-default {
+    background: #dfe3ea;
+    color: #848c97;
+    &:hover {
+       @include filter(brightness(1.05));
+    }
+  }
+  &:hover {
+    text-decoration: none;
+    @include filter(brightness(1.15));
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    &:hover {
+      background-color: $blueColor;
+    }
+  }
+  &.btn-mini {
+  	padding: 7px 25px;
+    font-size: 14px;
+  }
+  &.btn-xs-mini {
+    padding: 5px 13px;
+  }
+}
+[type=reset], [type=submit], button, html [type=button] {
+    -webkit-appearance: button;
+}
+.badge {
+  @include textSWC(12px, 700, $whiteColor);
+  padding: 5px 12px;
+  @include border-radius(20px);
+  display: inline-block;
+  line-height: 12px;
+  &.success {
+    background: $successColor;
+  }
+  &.danger {
+    background: $dangerColor;
+  }
+  &.warning {
+    background: $warningColor;
+  }
+}

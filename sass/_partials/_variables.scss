@@ -1,0 +1,69 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_variables.scss
+ *
+ * CSS rules that style HTML elements ("variables" styles). */
+// typeface variables
+
+$baseFontFamily: 'Lato', sans-serif;
+
+// primary color variables
+
+$blueColor:#10aae4;
+$lightBgColor:#f2f3f8;
+$sidebarBgColor:#2e3640;
+$successColor:#4adbbe;
+$dangerColor:#fc7e90;
+$warningColor:#f3c31b;
+$paginationColor:#91a1d0;
+
+// secondary color variables
+
+$blackColor:#000000;
+$whiteColor:#ffffff;
+$dimGrayColor:#a6b5c7;
+$darkGrayColor:#313239;
+$grayColor:#414245;
+$borderAlpha:0.3;
+$borderColor:rgba($dimGrayColor,$borderAlpha);
+$headingColor: #5c606b;
+$linkColor:#2e448c;
+
+
+// button variables
+$googleColor: #aa4f4b;
+$fbColor: #2c487a;
+
+// text sizes
+
+$baseFontSize:14px;
+
+//
+$all-text-inputs: (
+  "input[type='color']",
+  "input[type='date']",
+  "input[type='datetime']",
+  "input[type='datetime-local']",
+  "input[type='email']",
+  "input[type='month']",
+  "input[type='number']",
+  "input[type='password']",
+  "input[type='search']",
+  "input[type='tel']",
+  "input[type='text']",
+  "input[type='time']",
+  "input[type='url']",
+  "input[type='week']",
+  "input:not([type])",
+  "textarea",
+);
+
+$basepx: 16;
+
+// Convert PX to EM global function
+@function pxtoem($px, $basepx){
+    @return ($px/$basepx)+0em;
+}

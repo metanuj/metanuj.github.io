@@ -1,0 +1,162 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/base.scss
+ *
+ * CSS rules that style HTML elements ("base" styles).
+ */
+ // Here we import our partials
+
+@import "_partials/mixins";
+@import "_partials/variables";
+@import "_partials/reset";
+@import "_partials/forms";
+@import "_partials/buttons";
+@import "_partials/modal";
+@import "_partials/table";
+
+body {
+	font-family: $baseFontFamily;
+	line-height: 1.2;
+	font-size: $baseFontSize;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.text-center {
+	text-align: center !important;
+}
+
+//************* style rules for login screen start here ***************/
+.login-wrapper {
+	margin: 0 auto;
+	max-width: 1080px;
+	.login-bg {
+		background: url("../images/login_bg.png");
+		height: 100%;
+		background-repeat: no-repeat;
+		background-size: cover;
+		position: fixed;
+		z-index: -1;
+		max-width: 1080px;
+		width: 100%;
+	}
+	.login-form-wrap {
+		@include full-width;
+	}
+	.logo-container {
+		max-width: 54%;
+		margin: 0 auto;
+		.logo {
+			margin: 5.9375em 0 5em 0;
+			text-align: center;
+		}
+		h3, p {
+			@include textSWC(3.375em, 300, $whiteColor);
+			margin: 0;
+			text-align: center;
+			&.welcome-txt {
+				margin-bottom: 10px;
+			}
+		}
+	}
+	.login-form-container {
+		@include full-width;
+		padding: 0 pxtoem(50, $basepx);
+		margin-top: pxtoem(165, $basepx);
+		label {
+			@include textSWC(3em, 400, #adb9be);
+		}
+		.forgot-password-link {
+			margin: -2.5em 0 2.8125em 0;
+			a {
+				@include textSWC(3em, 400, #f0f6f8);
+			}
+		}
+		.btn {
+			min-width: 27.75rem;
+		}
+	}
+	.or-separator {
+		@include full-width;
+		margin-top: pxtoem(70, $basepx);
+		&:after {
+			content: "";
+			background: url("../images/or-separator.png");
+			height: 31px;
+		    display: block;
+		    margin: 0 2px;
+		    background-position: center;
+		}
+	}
+	.social-login-container {
+		@include full-width;
+		margin-top: pxtoem(80, $basepx);
+		text-align: center;
+		padding: 0 pxtoem(54, $basepx);
+		.social-login-text {
+			margin: 0;
+			@include textSWC(2.625em, 400, #adb9be);
+		}
+		.social-btn-wrap {
+			margin-top: pxtoem(70, $basepx);
+			.social-btn {
+				width: 46%;
+				float: left;
+				margin-right: 8%;
+				@include box-shadow(0 10px 15px rgba(#070a0d, 0.4));
+				@include border-radius(4.375rem);
+				padding: 2.1875rem 3rem;
+				img {
+					height: pxtoem(47, $basepx);
+				}
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+				&.google-login-btn {
+					background: $googleColor;
+				}
+				&.fb-login-btn {
+					background: $fbColor;
+				}
+			}
+		}
+	}
+	.bsignup-separator {
+		@include full-width;
+		margin-top: pxtoem(115, $basepx);
+		&:after {
+			content: "";
+			background: url("../images/separation.png");
+			height: 78px;
+		    display: block;
+		}
+	}
+	.signup-link-block {
+		@include full-width;
+		margin-top: pxtoem(80, $basepx);
+		text-align: center;
+		p {
+			margin: 0;
+			@include textSWC(3em, 400, #adb9be);
+			a {
+				color: $whiteColor;
+			}
+		}
+	}
+}
+@media only screen and (min-width:768px) {
+	.login-wrapper {
+		.login-bg {
+			height: pxtoem(1984, $basepx);
+		}
+	}
+}

@@ -1,0 +1,39 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_table.scss
+ *
+ * CSS rules that style HTML elements ("table" styles).
+ */
+
+.table {
+	width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    th {
+    	text-align: left;
+    }
+    >thead {
+    	background: $lightBgColor;
+    	> tr {
+    		> th {
+    			@include textSWC(14px, 900, #575961);
+    			padding: 18px 20px;
+    		}
+    	} 
+    }
+    >tbody {
+    	> tr {
+    		> td {
+    			@include textSWC(14px, 400, #767a82);
+    			padding: 15px 20px;
+    		}
+    	} 
+    }
+}
+.table-responsive {
+	min-height: .01%;
+	overflow-x: auto;
+}

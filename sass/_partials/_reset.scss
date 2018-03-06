@@ -1,0 +1,56 @@
+/*
+Theme Name: jellyfish
+*/
+/**
+ * @file
+ * sass/_partials/_reset.scss
+ *
+ * CSS rules that style HTML elements ("reset" styles).
+ */
+html,
+body,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+}
+* {
+	box-sizing: border-box;
+}
+button {
+	border: 0;
+	background: none;
+	outline: 0;
+	padding: 0;
+}
+img {
+	max-width: 100%;
+	border: 0;
+}
+a {
+    color: #0275d8;
+    text-decoration: none;
+}
+[role=button], a, area, button, input, label, select, summary, textarea {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+a:focus, a:hover {
+    color: #014c8c;
+}
+a:focus {
+	text-decoration: underline;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
